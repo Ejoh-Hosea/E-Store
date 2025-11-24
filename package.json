@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "daisyui": "^5.5.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
