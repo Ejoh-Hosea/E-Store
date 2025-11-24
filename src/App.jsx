@@ -1,4 +1,21 @@
+import {
+  About,
+  Cart,
+  Checkout,
+  Error,
+  HomeLayout,
+  Landing,
+  Login,
+  Orders,
+  Products,
+  Register,
+  SingleProduct,
+} from "./pages/index";
 const App = () => {
-  return <h1 className="text-3xl font-bold underline">Hello</h1>;
+  return (
+    <>
+      <About />
+    </>
+  );
 };
 export default App;
