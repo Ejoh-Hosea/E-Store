@@ -4,8 +4,6 @@ import { FormInput, SubmitBtn } from "../components";
 const Login = () => {
   return (
     <section className="h-screen grid place-items-center">
-      <button className="btn btn-primary">hello</button>
-
       <Form
         method="post"
         className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4"
@@ -24,19 +22,19 @@ const Login = () => {
         />
         <div className="mt-4">
           <SubmitBtn text="login" />
-          <button type="button" className="btn btn-secondary btn-block">
-            Guest user
-          </button>
-          <p className="text-center">
-            Not a member yet?{" "}
-            <Link
-              to="/register"
-              className="ml-2 link link-hover link-primary capitalize"
-            >
-              register
-            </Link>
-          </p>
         </div>
+        <button type="button" className="btn btn-secondary btn-block">
+          Guest user
+        </button>
+        <p className="text-center">
+          Not a member yet?{" "}
+          <Link
+            to="/register"
+            className="ml-2 link link-hover link-primary capitalize"
+          >
+            register
+          </Link>
+        </p>
       </Form>
     </section>
   );
