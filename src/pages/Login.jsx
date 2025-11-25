@@ -10,9 +10,6 @@ const Login = () => {
         method="post"
         className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4"
       >
-        <button className="btn btn-primary !bg-primary !text-primary-content !border-none">
-          Test Button
-        </button>
         <FormInput
           type="email"
           label="email"
