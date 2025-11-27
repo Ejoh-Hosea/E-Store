@@ -9,7 +9,21 @@ const carouselImages = [hero1, hero2, hero3, hero4];
 const Hero = () => {
   return (
     <div className="grid lg:grid-cols-2 gap-24 items-center">
-      <div>info</div>
+      <div>
+        <h1 className="max-2-2xl text-4xl font-bold tracking-tight sm:text-6xl">
+          shopping, but way smarter
+        </h1>
+        <p className=" mt-8 max-w-xl text-lg leading-8">
+          Discover a simple, modern shopping experience built to save you time,
+          cut stress, and make every purchase feel smooth and effortless.
+        </p>
+        <div className="mt-10">
+          <Link to="/products" className="btn btn-primart">
+            {" "}
+            Our Products
+          </Link>
+        </div>
+      </div>
       <div className="hidden lg:flex lg:carousel h-[28rem] carousel-center p-4 space-x-4 bg-neutral rounded-box">
         {carouselImages.map((image) => {
           return (
