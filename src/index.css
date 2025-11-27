@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+/* @plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake, business, corporate,
+    night;
+} */
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake;
+  themes: cupcake --default, night, business, corporate, night;
 }
 
 @plugin "@tailwindcss/typography";
