@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import hero1 from "../assets/hero1.webp";
-import hero2 from "../assets/hero2.webp";
+import hero1 from "../assets/hero1.jpg";
+import hero2 from "../assets/hero2.jpg";
 import hero3 from "../assets/hero3.webp";
 import hero4 from "../assets/hero4.webp";
 
@@ -18,7 +18,7 @@ const Hero = () => {
           cut stress, and make every purchase feel smooth and effortless.
         </p>
         <div className="mt-10">
-          <Link to="/products" className="btn btn-primart">
+          <Link to="/products" className="btn btn-primary">
             {" "}
             Our Products
           </Link>
