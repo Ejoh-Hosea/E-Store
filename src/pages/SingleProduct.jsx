@@ -5,7 +5,6 @@ import { useState } from "react";
 export const loader = async ({ params }) => {
   const response = await customFetch(`/products/${params.id}`);
 
-
   return { product: response.data.data };
 };
 
@@ -14,8 +13,8 @@ const SingleProduct = () => {
   const { image, title, price, description, colors, company } =
     product.attributes;
   const dollarsAmount = formatPrice(price);
-   const [productColor,setProduct] = useState(colors[0])
-  console.log(image);
+  const [productColor, setProductColor] = useState(colors[0]);
+  console.log(colors);
 
   return (
     <section>
@@ -51,10 +50,18 @@ const SingleProduct = () => {
               colors
             </h4>
             <div className="mt-2">
-              {colors.map((color)=>{
-                return<button key={color} type="button" className={`badge w-6 h-6 mr-2${color === productColor && 'border-2 border-secondary'}`} style={{backgroundVolor:color}} onClick={()=>setProductColor(color)}>
-                      
-                </button>
+              {colors.map((color) => {
+                return (
+                  <button
+                    key={color}
+                    type="button"
+                    className={`badge w-6 h-6 mr-2${
+                      color === productColor && "border-2 border-secondary"
+                    }`}
+                    style={{ backgroundColor: color }}
+                    onClick={() => setProductColor(color)}
+                  ></button>
+                );
               })}
             </div>
           </div>
