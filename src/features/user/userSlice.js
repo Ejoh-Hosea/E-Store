@@ -1,9 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
+const themes = {
+  night: "night",
+  cupcake: "cupcake",
+};
+const getThemeFromLocalStorage = () => {
+  const theme = localStorage.getItem("theme") || themes.cupcake;
+  document.documentElement.setAttribute("data-theme", theme);
+  return theme;
+};
+
 const initialState = {
   user: { username: "hosea" },
-  theme: "night",
+  theme: getThemeFromLocalStorage(),
 };
 
 const userSlice = createSlice({
@@ -17,7 +27,10 @@ const userSlice = createSlice({
       console.log("logout");
     },
     toggleTheme: (state) => {
-      console.log("toggleTheme");
+      const { night, cupcake } = themes;
+      state.theme = state.theme === cupcake ? night : cupcake;
+      document.documentElement.setAttribute("data-theme", state.theme);
+      localStorage.setItem("theme", state.theme);
     },
   },
 });
