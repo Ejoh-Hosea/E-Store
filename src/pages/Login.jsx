@@ -1,10 +1,29 @@
-import { Form, Link } from "react-router-dom";
+import { Form, Link, redirect, useNavigate } from "react-router-dom";
 import { FormInput, SubmitBtn } from "../components";
-export const action = (store) => async () => {
-  console.log(store);
+import { customFetch } from "../utils";
+import { toast } from "react-toastify";
+import { loginUser } from "../features/user/userSlice";
+import { useDispatch } from "react-redux";
 
-  return null;
-};
+export const action =
+  (store) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    try {
+      const response = await customFetch.post("/auth/local", data);
+      store.dispatch(loginUser(response.data));
+
+      toast.success("Logged in successfully");
+      return redirect("/");
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        " please check your credentials";
+      toast.error(errorMessage);
+    }
+    return null;
+  };
 const Login = () => {
   return (
     <section className="h-screen grid place-items-center">
