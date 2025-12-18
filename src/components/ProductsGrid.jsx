@@ -12,6 +12,7 @@ const ProductsGrid = () => {
         const dollarsAmout = formatPrice(price);
         return (
           <Link
+            key={product.id}
             to={`/products/${product.id}`}
             className="card w-full shadow-xl hover:shadow-2xl transition duration-300"
           >
