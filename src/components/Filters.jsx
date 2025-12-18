@@ -20,7 +20,7 @@ const Filters = () => {
       {/* categories */}
       <FormSelect
         label="select category"
-        name="company"
+        name="category"
         list={meta.categories}
         size="select-sm"
         defaultValue={category}
