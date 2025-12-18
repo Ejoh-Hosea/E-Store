@@ -39,7 +39,6 @@ export const loader =
       const response = await queryClient.ensureQueryData(
         ordersQuery(params, user)
       );
-      console.log(response);
 
       return { orders: response.data.data, meta: response.data.meta };
     } catch (error) {

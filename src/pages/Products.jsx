@@ -29,13 +29,11 @@ export const loader =
     const params = Object.fromEntries([
       ...new URL(request.url).searchParams.entries(),
     ]);
-    console.log(params);
 
     const response = await queryClient.ensureQueryData(
       allProductsQuery(params)
     );
     const products = response.data.data;
-    console.log(products);
 
     const meta = response.data.meta;
     return { products, meta, params };

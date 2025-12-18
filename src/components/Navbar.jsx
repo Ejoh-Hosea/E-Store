@@ -20,9 +20,20 @@ const Navbar = () => {
           {/* title */}
           <NavLink
             to="/"
-            className="hidden lg:flex btn btn-primary text-3xl items-center"
+            className="hidden lg:flex items-center gap-3 group transition-all duration-300"
           >
-            E-Store
+            {/* Logo Icon - Bordered & High Contrast */}
+            <div className="border-2 border-base-content text-base-content w-10 h-10 rounded-lg flex items-center justify-center text-xl font-black transition-all duration-300 group-hover:bg-base-content group-hover:text-base-100">
+              E
+            </div>
+
+            {/* Logo Text - Minimalist Typography */}
+            <div className="flex flex-col">
+              <span className="text-xl font-bold tracking-widest text-base-content uppercase leading-none">
+                Store
+              </span>
+              <div className="h-[2px] w-0 group-hover:w-full bg-base-content transition-all duration-300"></div>
+            </div>
           </NavLink>
           {/* DROPDOWN */}
           <div className="dropdown">
@@ -31,7 +42,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-53"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52"
             >
               <NavLinks />
             </ul>

@@ -19,7 +19,16 @@ const NavLinks = () => {
         if ((url === "checkout" || url === "orders") && !user) return null;
         return (
           <li key={id}>
-            <NavLink className="capitalize" to={url}>
+            <NavLink
+              className={({ isActive }) =>
+                `capitalize rounded-lg px-3 py-2 transition-colors ${
+                  isActive
+                    ? "bg-primary text-secondary-content"
+                    : "hover:bg-base-300"
+                }`
+              }
+              to={url}
+            >
               {text}
             </NavLink>
           </li>

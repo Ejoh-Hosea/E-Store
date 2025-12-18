@@ -1,16 +1,61 @@
-# React + Vite
+# E-Store | Modern E-Commerce Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, full-stack-feel e-commerce application built with **React**, **Redux Toolkit**, and **React Query**. This project implements a sophisticated data-fetching architecture using React Router 6.4+ Loaders and Actions.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
 
-## React Compiler
+### Product Management
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Advanced Filtering:** Filter products by category, company, price, and shipping. Includes a real-time search and sort functionality (A-Z, Z-A, High to Low).
+- **Featured Products:** Dedicated landing page showcasing top-tier items using high-efficiency caching.
+- **Pagination:** Seamless navigation through large product catalogs via a custom Pagination component.
 
-## Expanding the ESLint configuration
+### Authentication & Security
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Protected Routes:** Pages like `Checkout` and `Orders` are strictly guarded. Unauthenticated users are automatically redirected to the Login page.
+- **JWT Integration:** Secure communication with the backend using Bearer tokens stored in Redux and LocalStorage.
+- **User Persistence:** User sessions and profiles remain active even after page refreshes.
+
+### Cart & Order System
+
+- **Complex Cart Logic:** Real-time calculation of Tax, Shipping ($5.00), and Order Totals.
+- **Order Tracking:** Logged-in users can view their past orders, including item breakdowns and shipping addresses.
+- **Persistent Cart:** Cart data is synced with LocalStorage so users never lose their items.
+
+### UI/UX
+
+- **DaisyUI Theming:** Supports high-contrast "Night" and "Cupcake" themes with a custom theme-switcher.
+- **Responsive Design:** Fully optimized for mobile, tablet, and desktop using Tailwind CSS.
+- **Global Loading States:** Integrated loading bars and spinners for smooth transitions during API calls.
+
+---
+
+## Tech Stack
+
+| Technology           | Purpose                            |
+| :------------------- | :--------------------------------- |
+| **React 18**         | UI Library                         |
+| **React Router 6.4** | Data Loaders, Actions, and Routing |
+| **Redux Toolkit**    | Global State (User, Cart, Theme)   |
+| **TanStack Query**   | Server State Management & Caching  |
+| **Tailwind CSS**     | Utility-first Styling              |
+| **DaisyUI**          | Professional Component Library     |
+| **Axios**            | API Interceptor and HTTP Client    |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16.0.0 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repo:
+   ```bash
+   git clone [https://github.com/Ejoh-Hosea/e-store.git](https://github.com/Ejoh-Hosea/e-store.git)
+   ```
