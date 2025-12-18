@@ -83,7 +83,7 @@ const Hero = () => {
 
   return (
     <div className="flex flex-col w-full h-[430px] lg:h-[430px] overflow-hidden rounded-box bg-base-200 border border-base-300">
-      {/* --- Image & Content Section --- */}
+      {/*Image & Content Section*/}
       <div className="flex-[5] relative overflow-hidden">
         <div
           className="flex h-full"
@@ -131,10 +131,8 @@ const Hero = () => {
 
       {/* --- Controls Bar --- */}
       <div className="flex-1 grid grid-cols-3 items-center px-10 lg:px-24">
-        {/* Empty left side for centering */}
         <div className="hidden lg:block"></div>
 
-        {/* 1. Dots Centered */}
         <div className="flex justify-center gap-4">
           {originalData.map((_, index) => {
             const activeIndex = currentIndex % originalData.length;
@@ -154,7 +152,6 @@ const Hero = () => {
           })}
         </div>
 
-        {/* 2. Control Buttons on Right (Larger & with BG) */}
         <div className="flex items-center justify-end gap-3">
           <button
             onClick={() => handleManualChange("prev")}
