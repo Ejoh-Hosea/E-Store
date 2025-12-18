@@ -6,56 +6,48 @@ A high-performance, full-stack-feel e-commerce application built with **React**,
 
 ## Key Features
 
-### Product Management
+### Headless Backend (Strapi)
 
-- **Advanced Filtering:** Filter products by category, company, price, and shipping. Includes a real-time search and sort functionality (A-Z, Z-A, High to Low).
-- **Featured Products:** Dedicated landing page showcasing top-tier items using high-efficiency caching.
-- **Pagination:** Seamless navigation through large product catalogs via a custom Pagination component.
+- **API-First Design:** Fully managed product, category, and order data via **Strapi CMS**.
+- **Dynamic Queries:** Advanced filtering and search handled via Strapi's sophisticated REST API parameters.
+
+### Shopping Experience
+
+- **React Router Loaders:** High-performance data fetching at the route level to minimize UI layout shifts.
+- **Advanced Filters:** Filter by category, company, and price with a "Search" functionality that stays in sync with the URL.
+- **Persistent Cart:** Real-time calculation of tax, shipping, and totals, persisted in LocalStorage via Redux.
 
 ### Authentication & Security
 
-- **Protected Routes:** Pages like `Checkout` and `Orders` are strictly guarded. Unauthenticated users are automatically redirected to the Login page.
-- **JWT Integration:** Secure communication with the backend using Bearer tokens stored in Redux and LocalStorage.
-- **User Persistence:** User sessions and profiles remain active even after page refreshes.
+- **Restricted Access:** The `Checkout` and `Orders` pages are protected via Redux state checks.
+- **JWT Persistence:** Secure login/registration flow with automatic token attachment to outgoing requests.
 
-### Cart & Order System
+### Modern UI/UX
 
-- **Complex Cart Logic:** Real-time calculation of Tax, Shipping ($5.00), and Order Totals.
-- **Order Tracking:** Logged-in users can view their past orders, including item breakdowns and shipping addresses.
-- **Persistent Cart:** Cart data is synced with LocalStorage so users never lose their items.
-
-### UI/UX
-
-- **DaisyUI Theming:** Supports high-contrast "Night" and "Cupcake" themes with a custom theme-switcher.
-- **Responsive Design:** Fully optimized for mobile, tablet, and desktop using Tailwind CSS.
-- **Global Loading States:** Integrated loading bars and spinners for smooth transitions during API calls.
+- **Dual-Theme Toggle:** Switch between light and dark themes seamlessly using **DaisyUI**.
+- **Vite Speed:** Optimized build times and Hot Module Replacement (HMR) for a smooth dev experience.
+- **Responsive Layout:** Mobile-first design using **Tailwind CSS**.
 
 ---
 
 ## Tech Stack
 
-| Technology           | Purpose                            |
-| :------------------- | :--------------------------------- |
-| **React 18**         | UI Library                         |
-| **React Router 6.4** | Data Loaders, Actions, and Routing |
-| **Redux Toolkit**    | Global State (User, Cart, Theme)   |
-| **TanStack Query**   | Server State Management & Caching  |
-| **Tailwind CSS**     | Utility-first Styling              |
-| **DaisyUI**          | Professional Component Library     |
-| **Axios**            | API Interceptor and HTTP Client    |
+| Layer                  | Technology                                 |
+| :--------------------- | :----------------------------------------- |
+| **Frontend Framework** | **React 18 + Vite**                        |
+| **Backend**            | **Strapi (Headless CMS)**                  |
+| **State Management**   | **Redux Toolkit (User & Cart Slices)**     |
+| **Data Fetching**      | **TanStack Query & Axios**                 |
+| **Routing**            | **React Router Dom 6.4 (Loaders/Actions)** |
+| **UI Library**         | **Tailwind CSS & DaisyUI**                 |
 
 ---
 
 ## Getting Started
 
-### Prerequisites
+### 1. Clone the Repository
 
-- Node.js (v16.0.0 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repo:
-   ```bash
-   git clone [https://github.com/Ejoh-Hosea/e-store.git](https://github.com/Ejoh-Hosea/e-store.git)
-   ```
+```bash
+git clone [https://github.com/Ejoh-Hosea/e-store.git](https://github.com/Ejoh-Hosea/e-store.git)
+cd e-store
+```
