@@ -8,7 +8,6 @@ const FormInput = ({ label, name, type, defaultValue, size }) => {
         type={type}
         name={name}
         defaultValue={defaultValue}
-        placeholder="type here"
         className={`input input-bordered ${size}`}
       />
     </div>
