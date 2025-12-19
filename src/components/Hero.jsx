@@ -7,7 +7,7 @@ import hero2 from "../assets/hero2.jpg";
 import hero3 from "../assets/hero3.jpg";
 import hero4 from "../assets/hero4.jpg";
 
-const originalData = [
+const slides = [
   {
     id: 1,
     image: hero1,
@@ -34,103 +34,103 @@ const originalData = [
   },
 ];
 
-const carouselData = [...originalData, originalData[0]];
+const carouselSlides = [...slides, slides[0]];
 
 const Hero = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
   const timerRef = useRef(null);
 
-  const runTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    if (isPlaying) {
-      timerRef.current = setInterval(() => {
-        setIsTransitioning(true);
-        setCurrentIndex((prev) => prev + 1);
-      }, 5000);
-    }
-  };
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    timerRef.current = setInterval(() => {
+      setIndex((i) => i + 1);
+    }, 5000);
+
+    return () => clearInterval(timerRef.current);
+  }, [isPlaying]);
 
   useEffect(() => {
-    runTimer();
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isPlaying]); // Re-runs only when play/pause state changes
-
-  const handleManualChange = (direction) => {
-    setIsTransitioning(true);
-    if (direction === "next") {
-      setCurrentIndex((prev) => prev + 1);
-    } else {
-      if (currentIndex === 0) {
-        setIsTransitioning(false);
-        setCurrentIndex(originalData.length);
-        setTimeout(() => {
-          setIsTransitioning(true);
-          setCurrentIndex(originalData.length - 1);
-        }, 20);
-      } else {
-        setCurrentIndex((prev) => prev - 1);
-      }
+    if (!isAnimating) {
+      requestAnimationFrame(() => {
+        setIsAnimating(true);
+      });
     }
-    runTimer();
-  };
+  }, [isAnimating]);
 
   const handleTransitionEnd = () => {
-    if (currentIndex >= carouselData.length - 1) {
-      setIsTransitioning(false);
-      setCurrentIndex(0);
+    if (index === slides.length) {
+      setIsAnimating(false);
+      setIndex(0);
     }
   };
 
-  const togglePlay = () => {
-    setIsPlaying((prev) => !prev);
+  const next = () => {
+    clearInterval(timerRef.current);
+    setIndex((i) => i + 1);
+  };
+
+  const prev = () => {
+    clearInterval(timerRef.current);
+
+    if (index === 0) {
+      setIsAnimating(false);
+      setIndex(slides.length);
+      requestAnimationFrame(() => {
+        setIsAnimating(true);
+        setIndex(slides.length - 1);
+      });
+    } else {
+      setIndex((i) => i - 1);
+    }
+  };
+
+  const goTo = (i) => {
+    clearInterval(timerRef.current);
+    setIndex(i);
   };
 
   return (
     <div className="flex flex-col w-full h-[430px] overflow-hidden rounded-box bg-base-200 border border-base-300">
+      {/* slides */}
       <div className="flex-[5] relative overflow-hidden">
         <div
           className="flex h-full"
           onTransitionEnd={handleTransitionEnd}
           style={{
-            transform: `translate3d(-${currentIndex * 100}%, 0, 0)`,
-            transition: isTransitioning
-              ? "transform 750ms ease-in-out"
-              : "none",
+            transform: `translateX(-${index * 100}%)`,
+            transition: isAnimating ? "transform 750ms ease-in-out" : "none",
             willChange: "transform",
           }}
         >
-          {carouselData.map((slide, index) => (
+          {carouselSlides.map((slide, i) => (
             <div
-              key={index}
+              key={i}
               className="w-full h-full flex-shrink-0 flex items-center px-10 lg:px-24"
             >
               <div className="flex-1 z-10">
-                <h1 className="text-4xl lg:text-6xl font-extrabold text-base-content tracking-tight">
+                <h1 className="text-4xl lg:text-6xl font-extrabold tracking-tight">
                   {slide.title}
                 </h1>
-                <p className="mt-6 text-xl text-base-content/70 max-w-md">
+                <p className="mt-6 text-xl opacity-70 max-w-md">
                   {slide.subtitle}
                 </p>
                 <div className="mt-10">
                   <Link
                     to="/products"
-                    className="btn btn-primary btn-md lg:btn-lg rounded-full px-10"
+                    className="btn btn-primary rounded-full px-10"
                   >
-                    Shop now
+                    shop now
                   </Link>
                 </div>
               </div>
+
               <div className="flex-1 flex justify-end h-full py-8 lg:py-12">
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  loading="eager"
-                  decoding="async"
                   className="h-full w-full max-w-[600px] object-cover rounded-3xl shadow-xl"
                 />
               </div>
@@ -139,43 +139,38 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* controls */}
       <div className="flex-1 grid grid-cols-3 items-center px-10 lg:px-24">
-        <div className="hidden lg:block"></div>
+        <div />
+
+        {/* dots */}
         <div className="flex justify-center gap-4">
-          {originalData.map((_, index) => (
+          {slides.map((_, i) => (
             <button
-              key={index}
-              onClick={() => {
-                setIsTransitioning(true);
-                setCurrentIndex(index);
-                runTimer();
-              }}
-              className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                currentIndex % originalData.length === index
+              key={i}
+              onClick={() => goTo(i)}
+              className={`w-2 h-2 rounded-full ${
+                index % slides.length === i
                   ? "bg-primary"
                   : "bg-base-content/20"
               }`}
             />
           ))}
         </div>
+
+        {/* buttons */}
         <div className="flex items-center justify-end gap-3">
-          <button
-            onClick={() => handleManualChange("prev")}
-            className="btn btn-circle btn-md bg-base-100 border-none shadow-md hover:bg-primary hover:text-primary-content"
-          >
-            <FaChevronLeft size={16} />
+          <button onClick={prev} className="btn btn-circle">
+            <FaChevronLeft />
+          </button>
+          <button onClick={next} className="btn btn-circle">
+            <FaChevronRight />
           </button>
           <button
-            onClick={() => handleManualChange("next")}
-            className="btn btn-circle btn-md bg-base-100 border-none shadow-md hover:bg-primary hover:text-primary-content"
+            onClick={() => setIsPlaying((p) => !p)}
+            className="btn btn-circle btn-primary"
           >
-            <FaChevronRight size={16} />
-          </button>
-          <button
-            onClick={togglePlay}
-            className="btn btn-circle btn-md bg-primary text-primary-content border-none shadow-md hover:scale-105"
-          >
-            {isPlaying ? <FaPause size={14} /> : <FaPlay size={14} />}
+            {isPlaying ? <FaPause /> : <FaPlay />}
           </button>
         </div>
       </div>
