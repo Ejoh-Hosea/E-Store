@@ -34,7 +34,7 @@ const originalData = [
   },
 ];
 
-8const carouselData = [
+const carouselData = [
   originalData[originalData.length - 1],
   ...originalData,
   originalData[0],
