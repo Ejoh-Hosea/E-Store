@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight, FaPlay, FaPause } from "react-icons/fa";
 
 import hero1 from "../assets/hero1.jpg";
 import hero2 from "../assets/hero2.jpg";
 import hero3 from "../assets/hero3.jpg";
-import hero4 from "../assets/hero4.webp";
+import hero4 from "../assets/hero4.jpg";
 
 const originalData = [
   {
@@ -38,7 +38,7 @@ const carouselData = [...originalData, originalData[0]];
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const timerRef = useRef(null);
 
@@ -52,16 +52,29 @@ const Hero = () => {
     }
   };
 
-  if (isPlaying && !timerRef.current) runTimer();
+  useEffect(() => {
+    runTimer();
 
-  const handleManualChange = (step) => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPlaying]); // Re-runs only when play/pause state changes
+
+  const handleManualChange = (direction) => {
     setIsTransitioning(true);
-    if (step === "next") {
+    if (direction === "next") {
       setCurrentIndex((prev) => prev + 1);
     } else {
-      setCurrentIndex((prev) =>
-        prev === 0 ? originalData.length - 1 : prev - 1
-      );
+      if (currentIndex === 0) {
+        setIsTransitioning(false);
+        setCurrentIndex(originalData.length);
+        setTimeout(() => {
+          setIsTransitioning(true);
+          setCurrentIndex(originalData.length - 1);
+        }, 20);
+      } else {
+        setCurrentIndex((prev) => prev - 1);
+      }
     }
     runTimer();
   };
@@ -74,25 +87,21 @@ const Hero = () => {
   };
 
   const togglePlay = () => {
-    if (isPlaying) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-    setIsPlaying(!isPlaying);
+    setIsPlaying((prev) => !prev);
   };
 
   return (
-    <div className="flex flex-col w-full h-[430px] lg:h-[430px] overflow-hidden rounded-box bg-base-200 border border-base-300">
-      {/*Image & Content Section*/}
+    <div className="flex flex-col w-full h-[430px] overflow-hidden rounded-box bg-base-200 border border-base-300">
       <div className="flex-[5] relative overflow-hidden">
         <div
           className="flex h-full"
           onTransitionEnd={handleTransitionEnd}
           style={{
-            transform: `translateX(-${currentIndex * 100}%)`,
+            transform: `translate3d(-${currentIndex * 100}%, 0, 0)`,
             transition: isTransitioning
-              ? "transform 750ms cubic-bezier(0.4, 0, 0.2, 1)"
+              ? "transform 750ms ease-in-out"
               : "none",
+            willChange: "transform",
           }}
         >
           {carouselData.map((slide, index) => (
@@ -116,11 +125,12 @@ const Hero = () => {
                   </Link>
                 </div>
               </div>
-
-              <div className="flex-1 hidden md:flex justify-end h-full py-12">
+              <div className="flex-1 flex justify-end h-full py-8 lg:py-12">
                 <img
                   src={slide.image}
                   alt={slide.title}
+                  loading="eager"
+                  decoding="async"
                   className="h-full w-full max-w-[600px] object-cover rounded-3xl shadow-xl"
                 />
               </div>
@@ -129,29 +139,25 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* --- Controls Bar --- */}
       <div className="flex-1 grid grid-cols-3 items-center px-10 lg:px-24">
         <div className="hidden lg:block"></div>
-
         <div className="flex justify-center gap-4">
-          {originalData.map((_, index) => {
-            const activeIndex = currentIndex % originalData.length;
-            return (
-              <button
-                key={index}
-                onClick={() => {
-                  setIsTransitioning(true);
-                  setCurrentIndex(index);
-                  runTimer();
-                }}
-                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                  activeIndex === index ? "bg-primary" : "bg-base-content/20"
-                }`}
-              />
-            );
-          })}
+          {originalData.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setIsTransitioning(true);
+                setCurrentIndex(index);
+                runTimer();
+              }}
+              className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                currentIndex % originalData.length === index
+                  ? "bg-primary"
+                  : "bg-base-content/20"
+              }`}
+            />
+          ))}
         </div>
-
         <div className="flex items-center justify-end gap-3">
           <button
             onClick={() => handleManualChange("prev")}
@@ -159,14 +165,12 @@ const Hero = () => {
           >
             <FaChevronLeft size={16} />
           </button>
-
           <button
             onClick={() => handleManualChange("next")}
             className="btn btn-circle btn-md bg-base-100 border-none shadow-md hover:bg-primary hover:text-primary-content"
           >
             <FaChevronRight size={16} />
           </button>
-
           <button
             onClick={togglePlay}
             className="btn btn-circle btn-md bg-primary text-primary-content border-none shadow-md hover:scale-105"
